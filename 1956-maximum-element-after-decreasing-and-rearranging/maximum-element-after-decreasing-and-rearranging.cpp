@@ -11,12 +11,9 @@ public:
         {
             continue;
         }
-        else{
-          while((arr[i]-arr[i-1])>1)
-          {
-            
+        else{  
            arr[i] = arr[i-1] +1;
-          }
+          
         }
         
       }
