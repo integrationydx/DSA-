@@ -3,23 +3,36 @@ public:
     int maxAscendingSum(vector<int>& nums) {
         vector<int>f;
         int n = nums.size();
-        for(int i=0;i<n;i++)
+       int best_ending = nums[0];
+       int best_sum = nums[0];
+
+       for(int i=1;i<n;i++)
+       {
+        int val = best_ending + nums[i];
+        if(nums[i]>nums[i-1])
         {
-            int sum = nums[i];
-            for(int j=i+1;j<n;j++)
-            {
-                if(nums[j]>nums[j-1]) 
-                {
-                    sum+= nums[j];
-                }
-                else{
-                    break;
-                }
-            }
-                                f.push_back(sum);
-
-
+           best_ending+= nums[i];
         }
-        return *max_element(f.begin(),f.end());
+        
+        else{
+           
+            best_ending = nums[i];
+        }
+        best_sum = max(best_ending,best_sum);
+
+       }
+       
+        return best_sum;
+
+
+
+
+
+
+
+
+
+
+      
     }
 };
