@@ -1,60 +1,22 @@
 class Solution {
 public:
     vector<vector<int>> findDifference(vector<int>& nums1, vector<int>& nums2) {
-        vector<vector<int>> ds;
+
+        unordered_set<int> s1(nums1.begin(), nums1.end());
+        unordered_set<int> s2(nums2.begin(), nums2.end());
+
         vector<int> ans1, ans2;
 
-        // nums1 - nums2
-        for (int i = 0; i < nums1.size(); i++) {
-            bool found = false;
-            for (int j = 0; j < nums2.size(); j++) {
-                if (nums1[i] == nums2[j]) {
-                    found = true;
-                    break;
-                }
-            }
-
-            if (!found) {
-                bool present = false;
-                for (int k = 0; k < ans1.size(); k++) {
-                    if (ans1[k] == nums1[i]) {
-                        present = true;
-                        break;
-                    }
-                }
-
-                if (!present)
-                    ans1.push_back(nums1[i]);
-            }
+        for (auto x : s1) {
+            if (s2.find(x) == s2.end())
+                ans1.push_back(x);
         }
 
-        // nums2 - nums1
-        for (int i = 0; i < nums2.size(); i++) {
-            bool found = false;
-            for (int j = 0; j < nums1.size(); j++) {
-                if (nums2[i] == nums1[j]) {
-                    found = true;
-                    break;
-                }
-            }
-
-            if (!found) {
-                bool present = false;
-                for (int k = 0; k < ans2.size(); k++) {
-                    if (ans2[k] == nums2[i]) {
-                        present = true;
-                        break;
-                    }
-                }
-
-                if (!present)
-                    ans2.push_back(nums2[i]);
-            }
+        for (auto x : s2) {
+            if (s1.find(x) == s1.end())
+                ans2.push_back(x);
         }
 
-        ds.push_back(ans1);
-        ds.push_back(ans2);
-
-        return ds;
+        return {ans1, ans2};
     }
 };
