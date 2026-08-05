@@ -11,26 +11,17 @@
  */
 class Solution {
 public:
-  vector<int>f;
-void fun(TreeNode *root,vector<int> &f)
+int fun(TreeNode *root,int &sum,int low,int high)
 {
-    if(root == NULL) return;
-    fun(root->left,f);
-    f.push_back(root->val);
-    fun(root->right,f);
+    if(root == NULL) return -1;
+    if(root->val >= low && root->val<=high) sum+= root->val;
+    fun(root->left,sum,low,high);
+    fun(root->right,sum,low,high);
+
+    return sum;
 }
     int rangeSumBST(TreeNode* root, int low, int high) {
-      
-        fun(root,f);
-      int sumi = 0;
-        for(int i=0;i<f.size();i++)
-        {
-            if(f[i]>=low && f[i]<=high)
-            {
-                 sumi+= f[i];
-            }
-          
-        }
-        return sumi;
+      int sum = 0;
+        return fun(root,sum,low,high);
     }
 };
